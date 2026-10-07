@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ projeto.titulo }}</h1>
+    <p><strong>Categoria:</strong> <span class="badge">{{ projeto.categoria.nome }}</span></p>
+    <p><strong>Data de Início:</strong> {{ projeto.data_inicio|date:"d/m/Y" }}</p>
+
+    <hr>
+    <h3>Descrição do Projeto</h3>
+    <p>{{ projeto.descricao }}</p>
+    <hr>
+
+    <h3>Equipe de Alunos Integrantes</h3>
+    <ul>
+        {% for aluno in projeto.equipe.all %}
+            <li>
+                <strong>{{ aluno.nome }}</strong> (Matrícula: {{ aluno.matricula }})
+                {% if aluno.perfil %}
+                    <br><small><a href="{{ aluno.perfil.link_lattes }}" target="_blank">Currículo Lattes</a></small>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Nenhum aluno associado a este projeto.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'core:lista_projetos' %}" class="btn-back">← Voltar para a Lista de Projetos</a>
+{% endblock %}

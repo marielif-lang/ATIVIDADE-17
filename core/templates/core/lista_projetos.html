@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Lista de Projetos de Extensão</h1>
+
+    {% for projeto in projetos %}
+        <div class="card">
+            <h3>
+                <a href="{% url 'core:detalhe_projeto' projeto.id %}">{{ projeto.titulo }}</a>
+            </h3>
+            <p><strong>Categoria:</strong> <span class="badge">{{ projeto.categoria.nome }}</span></p>
+        </div>
+    {% empty %}
+        <p>Nenhum projeto cadastrado.</p>
+    {% endfor %}
+{% endblock %}
